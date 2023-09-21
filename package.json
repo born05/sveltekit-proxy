@@ -1,0 +1,19 @@
+{
+  "name": "@born05/sveltekit-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "index.d.ts",
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@sveltejs/kit": "^1.0.0"
+  }
+}
