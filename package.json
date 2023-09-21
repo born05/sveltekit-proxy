@@ -2,6 +2,7 @@
   "name": "@born05/sveltekit-proxy",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "type": "module",
   "exports": {
     ".": {
