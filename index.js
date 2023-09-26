@@ -10,7 +10,7 @@ export function proxyHandle(proxy, options = {}) {
     const { pathname } = event.url;
 
     /**
-     * Do not use hooks on the health endpoint, or the components pages
+     * Find first matching path
      */
     const matchingProxy = Object.keys(proxy).find((proxyPath) => pathname.match(proxyPath));
     if (matchingProxy) {
@@ -20,10 +20,16 @@ export function proxyHandle(proxy, options = {}) {
         console.debug(`Proxy: ${proxyTarget}${pathname}`, event.request.headers);
       }
 
+      /**
+       * Fetch data from remote server
+       */
       const resp = await fetch(`${proxyTarget}${pathname}`, {
         headers: event.request.headers,
       });
 
+      /**
+       * Clean up response headers
+       */
       const responseHeaders = Object.fromEntries(resp.headers.entries());
       delete responseHeaders['content-encoding'];
 
@@ -31,11 +37,17 @@ export function proxyHandle(proxy, options = {}) {
         console.debug(`Proxy response headers:`, responseHeaders);
       }
 
+      /**
+       * Return response from remote server
+       */
       return new Response(await resp.text(), {
         headers: responseHeaders,
       });
     }
 
+    /**
+     * Proceed without proxy
+     */
     const response = await resolve(event);
     return response;
   };
