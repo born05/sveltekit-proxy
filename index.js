@@ -2,9 +2,10 @@
 
 /** 
  * @param {{ [key: string]: string }} proxy
+ * @param {{ debug?: boolean }} options
  * @returns Handle
  */
-export function proxyHandle(proxy) {
+export function proxyHandle(proxy, options = {}) {
   return async function ({ event, resolve }) {
     const { pathname } = event.url;
 
@@ -14,6 +15,10 @@ export function proxyHandle(proxy) {
     const matchingProxy = Object.keys(proxy).find((proxyPath) => pathname.match(proxyPath));
     if (matchingProxy) {
       const proxyTarget = proxy[matchingProxy];
+
+      if (options && options.debug) {
+        console.debug(`Proxy: ${proxyTarget}${pathname}`, event.request.headers);
+      }
 
       const resp = await fetch(`${proxyTarget}${pathname}`, {
         headers: event.request.headers,
