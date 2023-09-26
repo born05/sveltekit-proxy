@@ -2,7 +2,7 @@
 
 /** 
  * @param {{ [key: string]: string }} proxy
- * @param {{ debug?: boolean }} options
+ * @param {{ debug?: boolean }=} options
  * @returns Handle
  */
 export function proxyHandle(proxy, options = {}) {
