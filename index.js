@@ -27,6 +27,10 @@ export function proxyHandle(proxy, options = {}) {
       const responseHeaders = Object.fromEntries(resp.headers.entries());
       delete responseHeaders['content-encoding'];
 
+      if (options && options.debug) {
+        console.debug(`Proxy response headers:`, responseHeaders);
+      }
+
       return new Response(await resp.text(), {
         headers: responseHeaders,
       });
