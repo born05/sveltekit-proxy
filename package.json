@@ -1,6 +1,6 @@
 {
   "name": "@born05/sveltekit-proxy",
-  "version": "1.0.2",
+  "version": "1.0.3-beta-1",
   "description": "A simple way to proxy paths from SvelteKit to a different server.",
   "main": "index.js",
   "type": "module",
