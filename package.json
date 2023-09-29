@@ -1,6 +1,6 @@
 {
   "name": "@born05/sveltekit-proxy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple way to proxy paths from SvelteKit to a different server.",
   "main": "index.js",
   "type": "module",
@@ -18,7 +18,8 @@
     "@sveltejs/kit": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,10 @@
   "bugs": {
     "url": "https://github.com/born05/sveltekit-proxy/issues"
   },
-  "homepage": "https://github.com/born05/sveltekit-proxy#readme"
+  "homepage": "https://github.com/born05/sveltekit-proxy#readme",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "3.0.3"
+  }
 }

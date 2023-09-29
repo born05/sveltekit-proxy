@@ -3,11 +3,13 @@
 A simple way to proxy paths from SvelteKit to a different server.
 
 Install:
+
 ```
 npm i -D @born05/sveltekit-proxy
 ```
 
 Example usage:
+
 ```ts
 import { sequence } from '@sveltejs/kit/hooks';
 import type { Handle } from '@sveltejs/kit';

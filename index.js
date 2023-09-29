@@ -1,6 +1,6 @@
 /** @typedef {import('@sveltejs/kit').Handle} Handle */
 
-/** 
+/**
  * @param {{ [key: string]: string }} proxy
  * @param {{ debug?: boolean }=} options
  * @returns Handle
@@ -12,12 +12,17 @@ export function proxyHandle(proxy, options = {}) {
     /**
      * Find first matching path
      */
-    const matchingProxy = Object.keys(proxy).find((proxyPath) => pathname.match(proxyPath));
+    const matchingProxy = Object.keys(proxy).find((proxyPath) =>
+      pathname.match(proxyPath),
+    );
     if (matchingProxy) {
       const proxyTarget = proxy[matchingProxy];
 
       if (options && options.debug) {
-        console.debug(`Proxy: ${proxyTarget}${pathname}`, event.request.headers);
+        console.debug(
+          `Proxy: ${proxyTarget}${pathname}`,
+          event.request.headers,
+        );
       }
 
       /**
@@ -42,7 +47,10 @@ export function proxyHandle(proxy, options = {}) {
       delete responseHeaders['content-encoding'];
 
       if (options && options.debug) {
-        console.debug(`Proxy response (${resp.status}) headers:`, responseHeaders);
+        console.debug(
+          `Proxy response (${resp.status}) headers:`,
+          responseHeaders,
+        );
       }
 
       /**
