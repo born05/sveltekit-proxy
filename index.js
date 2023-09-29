@@ -18,10 +18,22 @@ export function proxyHandle(proxy, options = {}) {
     if (matchingProxy) {
       const proxyTarget = proxy[matchingProxy];
 
+      /**
+       * Collect request headers
+       */
+      const requestHeaders = {
+        host: event.request.headers.get('host'),
+        accept: event.request.headers.get('accept'),
+        'user-agent': event.request.headers.get('user-agent'),
+        'accept-encoding': event.request.headers.get('user-agent'),
+        'accept-language': event.request.headers.get('user-agent'),
+        cookie: event.request.headers.get('cookie'),
+      };
+
       if (options && options.debug) {
         console.debug(
           `Proxy: ${proxyTarget}${pathname}`,
-          event.request.headers,
+          requestHeaders,
         );
       }
 
@@ -29,15 +41,7 @@ export function proxyHandle(proxy, options = {}) {
        * Fetch data from remote server
        */
       const resp = await fetch(`${proxyTarget}${pathname}`, {
-        headers: {
-          host: event.request.headers.get('host'),
-          connection: event.request.headers.get('connection'),
-          accept: event.request.headers.get('accept'),
-          'user-agent': event.request.headers.get('user-agent'),
-          'accept-encoding': event.request.headers.get('user-agent'),
-          'accept-language': event.request.headers.get('user-agent'),
-          cookie: event.request.headers.get('cookie'),
-        },
+        headers: requestHeaders,
       });
 
       /**
