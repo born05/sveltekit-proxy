@@ -2,10 +2,10 @@
 
 /**
  * @param {{ [key: string]: string }} proxy
- * @param {{ debug?: boolean }=} options
+ * @param {{ debug?: boolean; changeOrigin?: boolean }=} options
  * @returns Handle
  */
-export function proxyHandle(proxy, options = {}) {
+export function proxyHandle(proxy, options = { changeOrigin: true }) {
   return async function ({ event, resolve }) {
     const { pathname } = event.url;
 
@@ -22,19 +22,18 @@ export function proxyHandle(proxy, options = {}) {
        * Collect request headers
        */
       const requestHeaders = {
-        host: event.request.headers.get('host'),
         accept: event.request.headers.get('accept'),
         'user-agent': event.request.headers.get('user-agent'),
         'accept-encoding': event.request.headers.get('user-agent'),
         'accept-language': event.request.headers.get('user-agent'),
         cookie: event.request.headers.get('cookie'),
       };
+      if (options && !options.changeOrigin) {
+        requestHeaders.host = event.request.headers.get('host');
+      }
 
       if (options && options.debug) {
-        console.debug(
-          `Proxy: ${proxyTarget}${pathname}`,
-          requestHeaders,
-        );
+        console.debug(`Proxy: ${proxyTarget}${pathname}`, requestHeaders);
       }
 
       /**
