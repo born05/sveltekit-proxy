@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@sveltejs/kit": "^1.0.0"
+    "@sveltejs/kit": ">= 1.0.0 < 3.0.0"
   },
   "scripts": {
     "lint": "prettier --check . && eslint .",
