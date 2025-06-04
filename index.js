@@ -47,6 +47,11 @@ export function proxyHandle(proxy, options = { changeOrigin: true }) {
         const responseHeaders = new Headers(response.headers);
         responseHeaders.delete('content-encoding');
 
+        // Some proxied messages will have the incorrect content-length.
+        // Deleting this header causes it to be re-calculated during the Response below.
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Length
+        responseHeaders.delete('content-length');
+
         if (options && options.debug) {
           console.debug(
             `Proxy response (${response.status}) headers:`,
